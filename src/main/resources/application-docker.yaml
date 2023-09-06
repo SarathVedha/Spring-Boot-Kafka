@@ -1,0 +1,28 @@
+spring:
+  kafka:
+    producer: # kafka will be in multiple brokers, so bootstrap-servers supports multiple servers send it as localhost:9092, localhost:9093
+      bootstrap-servers: ${KAFKA_HOST_NAME_PORT}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      bootstrap-servers: ${KAFKA_HOST_NAME_PORT}
+      group-id: vedhaGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties: # Important entry to trust for to use spring json package
+        spring:
+          json:
+            trusted:
+              packages: "*"
+
+# Custom Property for kafka topic names
+kafka:
+  topic:
+    serializer:
+      string:
+        name: vedha
+      json:
+        name: vedha-json
