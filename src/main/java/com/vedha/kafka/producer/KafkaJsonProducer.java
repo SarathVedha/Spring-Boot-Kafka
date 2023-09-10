@@ -1,6 +1,7 @@
 package com.vedha.kafka.producer;
 
 import com.vedha.kafka.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,15 +12,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class KafkaJsonProducer {
 
     //private static final Logger LOGGER = LoggerFactory.getLogger(KafkaJsonProducer.class);
 
+    // @RequiredArgsConstructor will only create object with final variable
     private final KafkaTemplate<String, UserDTO> kafkaTemplate;
-
-    public KafkaJsonProducer(KafkaTemplate<String, UserDTO> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
 
     @Value("${kafka.topic.serializer.json.name}")
     private String topicName;
